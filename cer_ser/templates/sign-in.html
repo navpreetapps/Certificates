@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'styles/cer-form.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Inter, Helvetica, sans-serif;
+        background-color: #E1E3EA;
+        background-size: contain;
+
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #whole-page {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+
+    #full-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+</style>
+
+<body>
+    <div id="whole-page">
+        <!-- full menu -->
+        <div id="full-menu">
+            <!-- primary menu -->
+            {% include 'menu.html' %}
+            <!-- primary menu end-->
+        </div>
+        <!-- full menu end-->
+        <!-- page content -->
+        <style>
+            #page-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background-color: #FFFFFF;
+            }
+        </style>
+        <div id="page-content">
+            <div id="form">
+                {% csrf_token %}
+                <div class="form-item">
+                    <p class="menu-main-title">
+                        Sign in
+                    </p>
+                    <p class="menu-heading">
+                        Your Social Campaign
+                    </p>
+                </div>
+                <div class="form-item input-item-extra-css">
+                    <input id='email' type="text" placeholder="Email" name="email" autocomplete="off"
+                        class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                </div>
+                <div class="form-item input-item-extra-css">
+                    <input id='password' type="text" placeholder="Password" name="password" autocomplete="off"
+                        class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                </div>
+                <div class="form-item submit-item-extra-css">
+                    <button type="submit"
+                        class="form-element-intra-vertical-align form-element-hover-area form-text submit-button-specific-css"
+                        onclick="send_data()">Sign
+                        in</button>
+                </div>
+
+                <div class="form-item">
+                    <p class="menu-heading">
+                        not have an account yet?
+                        <span class="forget-password form-text"><a href="/sign-up/">Sign Up</a></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- whole page end-->
+</body>
+<style>
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+<script>
+    function send_data() {
+        email = document.getElementById('email').value;
+        password = document.getElementById('password').value;
+        csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            res = this.responseText;
+            if (res != 'false') {
+                store_token(res);
+                window.open("/builder/",'_self');
+
+            }
+            else {
+                alert(false);
+            }
+
+        }
+        xhttp.open("POST", "/login-checker");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("email=" + email + "&password=" + password + "&csrfmiddlewaretoken=" + csrf);
+    }
+
+    function store_token(token) {
+        localStorage.setItem("certificate_user_token", token);
+    }
+</script>
+</html>
+
+

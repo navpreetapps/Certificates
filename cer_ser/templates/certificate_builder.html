@@ -1,0 +1,372 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Give note to users if they find some error in signature position, try putting more characters in text till you get your error solved -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'styles/cer-form.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Inter, Helvetica, sans-serif;
+        background-color: #E1E3EA;
+
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #whole-page {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+
+    #full-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    @media (max-width:900px) {
+        #full-menu {
+            position: fixed;
+        }
+
+        #page-content {
+            margin-left: 10vh;
+            min-height: 100vh;
+        }
+
+    }
+
+
+    #secondary-menu {
+        transition: width .3s ease;
+        display: inline-block;
+        position: relative;
+        height: 100vh;
+        width: 40vh;
+        background-color: #287884;
+    }
+
+    #sec-menu-toggle-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        position: absolute;
+        right: -1.25rem;
+        top: 90vh;
+        padding: 0;
+        border: none;
+        border-radius: 5px;
+        font-size: larger;
+        color: #7E8299;
+        box-shadow: black;
+        z-index: 100;
+
+    }
+
+    .sec-menu-toggler {
+        transition: transform .3s ease;
+    }
+
+    #sec-menu-toggle-btn.show .sec-menu-toggler {
+        transform: rotateZ(180deg);
+    }
+
+
+    #sec-menu-content-cont {
+        padding: 2rem 2px;
+        display: none;
+        width: inherit;
+    }
+
+    #sec-menu-content-cont.opened {
+        display: block;
+    }
+
+    #sec-menu-nav-cont {
+        width: 35vh;
+    }
+
+    #sec-menu-content-cont .menu-main-title {
+        color: white;
+        font-size: larger;
+        font-weight: 700;
+        cursor: default;
+        margin-bottom: 1rem;
+    }
+
+    #sec-menu-content-cont .menu-title,
+    #sec-menu-content-cont .menu-heading,
+    #sec-menu-content-cont .i-outline {
+        color: #7db9c1;
+    }
+</style>
+
+<body>
+    <div id="whole-page">
+        <!-- full menu -->
+        <div id="full-menu">
+            <!-- primary menu -->
+            {% include 'menu.html' %}
+            <!-- primary menu end-->
+            <!-- sec menu -->
+            <div id="secondary-menu">
+                <div id="sec-menu-content-cont" class="opened">
+                    <div class="menu-item">
+                        <div class="menu-link-intra-vertical-align menu-link-hover-area">
+                            <span class="menu-main-title">
+                                Choose Certificate:
+                            </span>
+                        </div>
+                    </div>
+                    <!-- sec menu nav cont -->
+                    <div id="sec-menu-nav-cont">
+                        <style>
+                            ::-webkit-scrollbar {
+                                width: 10px;
+                            }
+
+                            ::-webkit-scrollbar-track {
+                                background: #287884;
+                            }
+
+                            ::-webkit-scrollbar-thumb {
+                                background: #7db9c1;
+                            }
+
+                            ::-webkit-scrollbar-thumb:hover {
+                                background: white;
+                            }
+
+                            body {
+                                margin: 0;
+                                font-family: Inter, Helvetica, sans-serif;
+                            }
+
+                            * {
+                                box-sizing: border-box;
+                            }
+
+                            
+
+                            #certs-cont {
+                                /* height: 90vh; */
+                                height: 70vh;
+                                width: inherit;
+                                flex-direction: column;
+                                overflow-y: visible;
+                                overflow-x: visible;
+                            }
+
+                            .cert-item {
+                                padding: 0.3rem 0.6rem 0.15rem 0.6rem;
+                                display: inline-block;
+                                width: inherit;
+                            }
+
+                            .cert-link-hover-area {
+                                width: inherit;
+                                padding: .3rem .5rem;
+                                background-color: #7db9c1;
+                                border-radius: 5px;
+                            }
+
+                            .cert-link-active {
+                                background-color: #FFFFFF;
+                            }
+
+                            #cert-editor {
+                                display: flex;
+                                align-items: center;
+                                width: 100%;
+                                background-color: red;
+                            }
+                        </style>
+                        <div id="certs-cont">
+                            {% for certificate in certificates %}
+                            <div class="cert-item">
+                                <img class="cert-link-hover-area" onclick="add_id_to_form(this,'{{ certificate.id}}')"
+                                    src="{% static '' %}{{ certificate.image_url }}" alt="certificate">
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <button id="sec-menu-toggle-btn" onclick="secondary_menu_slider(this)">
+                    <div class="sec-menu-toggler">
+                        <i class="i-outline i-arrow-left"></i>
+                    </div>
+                </button>
+            </div>
+            <!-- sec menu end-->
+        </div>
+        <!-- full menu end-->
+        <!-- page content -->
+        <style>
+            #page-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background-color: #FFFFFF;
+                /* display: none; */
+            }
+        </style>
+        <div id="page-content">
+            <form id="form" action="" method="post">
+                {% csrf_token %}
+                <div class="form-item">
+                    <p class="menu-main-title">
+                        Builder
+                    </p>
+                    <p class="menu-heading">
+                        Specify the content to be written
+                    </p>
+                </div>
+                <input id="certificate-id" type="hidden" placeholder="Certificate Id" name="certificate"
+                    autocomplete="off" class="" value="{{ certificates.0.id}}" />
+                <input id="token" type="hidden" placeholder="Token" name="token" autocomplete="off" class="" value="" />
+                <div class="form-item input-item-extra-css">
+                    <textarea style="white-space: break-spaces;" name="text" autocomplete="off" rows="3" cols="100%"
+                        placeholder="Text"
+                        class="form-element-intra-vertical-align form-element-hover-area form-text"></textarea>
+
+                </div>
+                <div class="form-item input-item-extra-css">
+                    <input type="text" placeholder="Date" name="date" autocomplete="off"
+                        class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                </div>
+                <div class="form-item input-item-extra-css">
+                    <input type="text" placeholder="Signature" name="signature" autocomplete="off"
+                        class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                </div>
+                <div id="extra-veri-inputs" class="hidden-inputs">
+                    <div class="form-item input-item-extra-css">
+                        <input type="text" placeholder="Candidate Name" name="holder" autocomplete="off"
+                            class="form-element-intra-vertical-align form-element-hover-area form-text" value="" />
+                    </div>
+                    <div class="form-item input-item-extra-css">
+                        <input type="text" placeholder="Candidate date of birth" name="dob" autocomplete="off"
+                            class="form-element-intra-vertical-align form-element-hover-area form-text" value="" />
+                    </div>
+                </div>
+                <div id="extra-error-inputs" class="hidden-inputs">
+                    <div class="form-item input-item-extra-css">
+                        <input type="text" placeholder="Number of lines of text in errored PDF" name="lines"
+                            autocomplete="off"
+                            class="form-element-intra-vertical-align form-element-hover-area form-text" value="" />
+                    </div>
+                </div>
+                <div class="form-item">
+                    <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                        <div style="display: inline;" id="extra-data">
+                            <span class="mnu-icon-with-mg-right">
+                                <input type="checkbox" class="form-img-size checkbox-extra-css"
+                                    onclick="toggle_extra_inputs('extra-veri-inputs')">
+                            </span>
+                            <label class="form-text">Increase certificate verification chances</label>
+                        </div>
+                        <span class="forget-password form-text"><span class="mnu-icon-with-mg-right">
+                                <input type="checkbox" class="form-img-size checkbox-extra-css"
+                                    onclick="toggle_extra_inputs('extra-error-inputs')">
+                            </span>
+                            <label class="form-text">Remove error in downloaded pdf</label></span>
+                    </div>
+                </div>
+                <div class="custom-row social-buttons">
+                    <div class="custom-col">
+                        <div class="form-item  submit-item-extra-css">
+                            <button type="submit"
+                                class="form-element-intra-vertical-align form-element-hover-area form-text submit-button-specific-css"
+                                onclick="form_action('/previewpdf')">Preview as PDF</button>
+                        </div>
+                    </div>
+                    <div class="custom-col">
+                        <div class="form-item  submit-item-extra-css">
+                            <button type="submit"
+                                class="form-element-intra-vertical-align form-element-hover-area form-text submit-button-specific-css"
+                                onclick="form_action('/savepdf')">Save as PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sign" class="form-item">
+                    <p class="menu-heading">
+                        Wanna be able to verify Certificates also?
+                        <span class="forget-password form-text"><a href="/sign-up/">SignUp</a> or <a
+                                href="/sign-in/">SignIn</a></span>
+                    </p>
+                </div>
+            </form>
+
+        </div>
+        <!-- page content end -->
+
+    </div>
+    <!-- whole page end-->
+</body>
+<script>
+    var hide = false;
+    function secondary_menu_slider(target) {
+        if (target != "none") {
+            target.classList.toggle('show');
+        }
+        if (hide == false) {
+            document.getElementById("secondary-menu").style.width = "0vh";
+            document.getElementById("sec-menu-content-cont").classList.remove('opened');
+            hide = true;
+        } else {
+            document.getElementById("secondary-menu").style.width = "40vh";
+            setTimeout(sec_content_display, 150)
+            hide = false;
+        }
+    }
+
+    function sec_content_display() {
+        document.getElementById("sec-menu-content-cont").classList.add('opened');
+
+    }
+    function add_id_to_form(target, id) {
+        document.getElementById('certificate-id').value = id;
+        document.getElementsByClassName("cert-link-active")[0].classList.remove('cert-link-active');;
+        target.classList.add('cert-link-active');
+    }
+
+    function form_action(target) {
+        document.getElementById('form').action = target;
+    }
+
+    input_token();
+    function input_token() {
+        document.getElementsByClassName('cert-link-hover-area')[0].classList.add('cert-link-active');
+        token = localStorage.getItem("certificate_user_token");
+        if (token == null) {
+            document.getElementById('extra-data').style.display = 'none';
+            document.getElementById('logout').style.display = 'none';
+            return;
+        }
+        document.getElementById('sign').style.display = 'none';
+        document.getElementById('token').value = token;
+    }
+    
+
+    function toggle_extra_inputs(target) {
+        document.getElementById(target).classList.toggle('hidden-show');
+    }
+</script>
+
+</html>

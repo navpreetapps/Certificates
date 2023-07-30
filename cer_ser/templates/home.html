@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'styles/cer-form.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Inter, Helvetica, sans-serif;
+        background-color: #E1E3EA;
+        background-size: contain;
+
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #whole-page {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+
+    #full-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+</style>
+
+<body>
+    <div id="whole-page">
+        <!-- full menu -->
+        <div id="full-menu">
+            <!-- primary menu -->
+            {% include 'menu.html' %}
+            <!-- primary menu end-->
+        </div>
+        <!-- full menu end-->
+        <!-- page content -->
+        <style>
+            #page-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background-color: #FFFFFF;
+            }
+        </style>
+        <div id="page-content">
+            <div id="service-content">
+                <img src="{% static '8600853_3943613.jpg' %}" class="image">
+
+                <div class="service-item">
+                    <div class="service-hover">
+                        <h1>Certificate Services</h1>
+                        <p>You can make new and verify existing certificates in this website</p>
+
+                        <div class="custom-row social-buttons my-14">
+                            <div class="custom-col">
+                                <div class="form-item  submit-item-extra-css">
+                                    <a href="/builder/"
+                                        class="form-element-intra-vertical-align form-element-hover-area form-text submit-button-specific-css">
+                                        <span style="color: #FFFFFF;" class="form-text">Make Certificate</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="custom-col">
+                                <div class="form-item  submit-item-extra-css">
+                                    <a href="/verifier/"
+                                        class="form-element-intra-vertical-align form-element-hover-area form-text submit-button-specific-css">
+                                        <span style="color: #FFFFFF;" class="form-text">Verify Certificate</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- page content end -->
+        <style>
+            #service-content {
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                flex-direction: row;
+                align-items: end;
+                background-color: #FFFFFF;
+                /* display: none; */
+                padding: 4rem;
+
+            }
+
+            .image {
+                height: 80vh;
+                width: 70%;
+                float: right;
+                /* transform: rotateY(180deg); */
+                z-index: 0;
+            }
+
+            #service-content h1 {
+                color: #1E6A75;
+                white-space: nowrap;
+                font-weight: bold;
+                font-size: 2rem;
+                line-height: 1.5;
+                word-spacing: 0.5rem;
+            }
+
+            #service-content p {
+                color: #7db9c1;
+                font-weight: 500;
+                line-height: 1.5;
+                word-spacing: 0.2rem;
+                font-size: 1rem;
+            }
+
+            .service-item {}
+
+            .service-hover {
+                text-align: center;
+                padding: .65rem 1rem;
+            }
+
+            .letssee-item-extra-css {
+                margin-top: 5rem;
+                padding: 0.15rem 0 0.15rem 0;
+            }
+
+            .letssee-button-specific-css {
+                justify-content: center;
+                background-color: #0493A8;
+                color: #FFFFFF;
+                font-weight: 500;
+            }
+
+            @media (max-width:1200px) {
+                #service-content {
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 1rem;
+                }
+
+                .image {
+                    height: 60%;
+                    width: 100%;
+                }
+
+                .letssee-item-extra-css {
+                    margin-top: 0rem;
+                }
+
+                .letssee-button-specific-css {
+                    display: flex;
+                }
+            }
+        </style>
+
+    </div>
+    <!-- whole page end-->
+</body>
+
+</html>

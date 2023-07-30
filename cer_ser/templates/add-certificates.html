@@ -1,0 +1,399 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'styles/cer-form.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Inter, Helvetica, sans-serif;
+        background-color: #E1E3EA;
+        background-size: contain;
+
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #whole-page {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+
+    #full-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+</style>
+
+<body>
+    <div id="whole-page">
+        <!-- full menu -->
+        <div id="full-menu">
+            <!-- primary menu -->
+            {% include 'menu.html' %}
+            <!-- primary menu end-->
+        </div>
+        <!-- full menu end-->
+        <!-- page content -->
+        <style>
+            #page-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background-color: #FFFFFF;
+                position: relative;
+            }
+        </style>
+        <div id="page-content">
+
+            <style>
+                .vertical-range {
+                    width: 368px;
+                    transform: rotateZ(90deg);
+                    display: inline-block;
+                }
+
+                .horizontal-range {
+                    width: 546px;
+                }
+
+                .range-item {
+                    padding: .3rem .5rem;
+                    width: inherit;
+                }
+
+                #editor,
+                #cont-item {
+                    display: inline-block;
+                    width: 40%;
+                }
+
+                .range-hover-area {
+                    padding: .3rem .5rem;
+                    border-radius: 5px;
+                    border: 1px solid #E1E3EA;
+                    background-color: #FFFFFF;
+                }
+
+                h1 {
+                    font-size: 1.2rem;
+                }
+
+                .row {
+                    display: block;
+                }
+            </style>
+            <form id="style-form" style="" action='/style-storer' method="post">
+                <!-- width: 546px; -->
+                {% csrf_token %}
+                <div id="cont-item" class="form-item">
+                    <div id="cont-info" class="form-element-hover-area">
+                        <h1>Text</h1>
+                        <div class="range-item">
+                            <div class="form-element-hover-area">
+                                <label>Top Distance:</label> <input type="range" id="text-pos-top" name="text_pos_top"
+                                    min="0" max="270" value="162" onclick="edit_style('text','top',this.value)">
+                            </div>
+                        </div>
+                        <div class="range-item">
+                            <div class="form-element-hover-area">
+                                <label>Width:</label><input type="range" id="text-width" name="text_width" min="150"
+                                    max="546" value="546" onclick="edit_style('text','width',this.value)">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                            <input type="text" type="text" placeholder="text font size" name="text_font_size" value=""
+                                autocomplete="off"
+                                class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                        </div>
+                        <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                            <input type="text" type="text" placeholder="text color" name="text_color" autocomplete="off"
+                                class="form-element-intra-vertical-align form-element-hover-area form-text" value="" />
+                        </div>
+                        <div id="extra-error-text-inputs" class="hidden-inputs">
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <input type="text" placeholder="text pos top error value"
+                                    name="text_pos_top_error_value" value="" autocomplete="off"
+                                    class="form-element-intra-vertical-align form-element-hover-area form-text"
+                                    value="" />
+                            </div>
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                    <span class="mnu-icon-with-mg-right">
+                                        <input type="radio" placeholder="text pos top error op"
+                                            name="text_pos_top_error_op" value="0" checked
+                                            class="form-img-size checkbox-extra-css">
+                                    </span>
+                                    <label class="form-text">Add error value &nbsp;</label>
+                                    <span class="forget-password form-text"><span class="mnu-icon-with-mg-right">
+                                            <input type="radio" placeholder="text pos top error op"
+                                                name="text_pos_top_error_op" value="1"
+                                                class="form-img-size checkbox-extra-css">
+                                        </span>
+                                        <label class="form-text">Subtract error value &nbsp;</label></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                <span class="mnu-icon-with-mg-right">
+                                    <input type="checkbox" class="form-img-size checkbox-extra-css"
+                                        onclick="toggle_extra_inputs('extra-error-text-inputs')">
+                                </span>
+                                <label class="form-text">Remove Errors in Downloaded PDF</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="editor" style="position: relative; width: 546px; display: inline-block;">
+                    <img style="width: 546px; height: 368px;" src="{% static 'pngwing.com (1).png' %}">
+                    <div style="width: 100%; display: flex; justify-content: center;">
+                        <div id="text"
+                            style="display: flex; justify-content: center; align-items: center; position: absolute; top: 162px; opacity: 0.5; width: 546px; height: 80px; background-color: #287884;">
+                            Text</div>
+                    </div>
+                    <div id="date"
+                        style="display: flex; justify-content: center;  align-items: center;position: absolute; top: 271px; left: 112px; opacity: 0.5; width: 100px; height: 30px; background-color: #287884;">
+                        Date</div>
+                    <div id="signature"
+                        style="display: flex;  justify-content: center; align-items: center;position: absolute; top: 271px; left: 324px;  opacity: 0.5; width: 100px; height: 30px; background-color: #287884;">
+                        Signature</div>
+                </div>
+
+                <div id="cont-item" class="form-item">
+                    <div id="cont-info" class="form-element-hover-area">
+                        <h1>Date</h1>
+                        <div class="range-item">
+                            <div class="form-element-hover-area">
+                                <label>Top Distance:</label><input type="range" id="date-pos-top" name="date_pos_top"
+                                    min="0" max="350" value="271" onclick="edit_style('date','top',this.value)">
+                            </div>
+                        </div>
+                        <div class="range-item">
+                            <div class="form-element-hover-area">
+                                <label>Left Distance:</label> <input type="range" id="date-pos-left"
+                                    name="date_pos_left" min="0" max="450" value="112"
+                                    onclick="edit_style('date','left',this.value)">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                            <input type="text" placeholder="date font size" name="date_font_size" autocomplete="off" value=""
+                                class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                        </div>
+                        <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                            <input type="text" placeholder="date color" name="date_color" autocomplete="off" value=""
+                                class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                        </div>
+
+                        <div id="extra-error-date-inputs" class="hidden-inputs">
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <input type="text" placeholder="date pos top error value"
+                                    name="date_pos_top_error_value" autocomplete="off"
+                                    class="form-element-intra-vertical-align form-element-hover-area form-text"
+                                    value="" />
+                            </div>
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                    <span class="mnu-icon-with-mg-right">
+                                        <input type="radio" placeholder="date pos top error op"
+                                            name="date_pos_top_error_op" value="0" checked
+                                            class="form-img-size checkbox-extra-css">
+                                    </span>
+                                    <label class="form-text">Add error value &nbsp;</label>
+                                    <span class="forget-password form-text"><span class="mnu-icon-with-mg-right">
+                                            <input type="radio" placeholder="date pos top error op"
+                                                name="date_pos_top_error_op" value="1"
+                                                class="form-img-size checkbox-extra-css">
+                                        </span>
+                                        <label class="form-text">Subtract error value &nbsp;</label></span>
+                                </div>
+                            </div>
+
+
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <input type="text" placeholder="date pos left error value"
+                                    name="date_pos_left_error_value" autocomplete="off"
+                                    class="form-element-intra-vertical-align form-element-hover-area form-text"
+                                    value="" />
+                            </div>
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                    <span class="mnu-icon-with-mg-right">
+                                        <input type="radio" placeholder="date pos left error op"
+                                            name="date_pos_left_error_op" value="0" checked
+                                            class="form-img-size checkbox-extra-css">
+                                    </span>
+                                    <label class="form-text">Add error value &nbsp;</label>
+                                    <span class="forget-password form-text"><span class="mnu-icon-with-mg-right">
+                                            <input type="radio" placeholder="date pos left error op"
+                                                name="date_pos_left_error_op" value="1"
+                                                class="form-img-size checkbox-extra-css">
+                                        </span>
+                                        <label class="form-text">Subtract error value &nbsp;</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-item">
+                            <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                <span class="mnu-icon-with-mg-right">
+                                    <input type="checkbox" class="form-img-size checkbox-extra-css"
+                                        onclick="toggle_extra_inputs('extra-error-date-inputs')">
+                                </span>
+                                <label class="form-text">Remove Errors in Downloaded PDF</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="cont-item" class="form-item">
+                    <div id="cont-info" class="form-element-hover-area">
+                        <h1>Signature</h1>
+                        <div class="range-item">
+                            <div class="form-element-hover-area">
+                                <label>Top Distance:</label><input type="range" id="signature-pos-top"
+                                    name="signature_pos_top" min="0" max="350" value="271"
+                                    onclick="edit_style('signature','top',this.value)">
+                            </div>
+                        </div>
+                        <div class="range-item">
+                            <div class="form-element-hover-area">
+                                <label>Left Distance:</label> <input type="range" id="signature-pos-left"
+                                    name="signature_pos_left" min="0" max="450" value="324"
+                                    onclick="edit_style('signature','left',this.value)">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                            <input type="text" placeholder="signature font size" name="signature_font_size" value=""
+                                autocomplete="off"
+                                class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                        </div>
+                        <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                            <input type="text" placeholder="signature color" name="signature_color" autocomplete="off" value=""
+                                class="form-element-intra-vertical-align form-element-hover-area form-text" />
+                        </div>
+
+                        <div id="extra-error-signature-inputs" class="hidden-inputs">
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <input type="text" placeholder="signature pos top error value"
+                                    name="signature_pos_top_error_value" autocomplete="off"
+                                    class="form-element-intra-vertical-align form-element-hover-area form-text"
+                                    value="" />
+                            </div>
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                    <span class="mnu-icon-with-mg-right">
+                                        <input type="radio" placeholder="signature pos top error op"
+                                            name="signature_pos_top_error_op" value="0" checked
+                                            class="form-img-size checkbox-extra-css">
+                                    </span>
+                                    <label class="form-text">Add error value &nbsp;</label>
+                                    <span class="forget-password form-text"><span class="mnu-icon-with-mg-right">
+                                            <input type="radio" placeholder="signature pos top error op"
+                                                name="signature_pos_top_error_op" value="1"
+                                                class="form-img-size checkbox-extra-css">
+                                        </span>
+                                        <label class="form-text">Subtract error value &nbsp;</label></span>
+                                </div>
+                            </div>
+
+
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <input type="text" placeholder="signature pos left error value"
+                                    name="signature_pos_left_error_value" autocomplete="off"
+                                    class="form-element-intra-vertical-align form-element-hover-area form-text"
+                                    value="" />
+                            </div>
+                            <div style="margin-bottom: 0;" class="form-item input-item-extra-css">
+                                <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                    <span class="mnu-icon-with-mg-right">
+                                        <input type="radio" placeholder="signature pos left error op"
+                                            name="signature_pos_left_error_op" value="0" checked
+                                            class="form-img-size checkbox-extra-css">
+                                    </span>
+                                    <label class="form-text">Add error value &nbsp;</label>
+                                    <span class="forget-password form-text"><span class="mnu-icon-with-mg-right">
+                                            <input type="radio" placeholder="signature pos left error op"
+                                                name="signature_pos_left_error_op" value="1"
+                                                class="form-img-size checkbox-extra-css">
+                                        </span>
+                                        <label class="form-text">Subtract error value &nbsp;</label></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-item">
+                            <div class="form-element-intra-vertical-align form-element-hover-area fp-specific-css">
+                                <span class="mnu-icon-with-mg-right">
+                                    <input type="checkbox" class="form-img-size checkbox-extra-css"
+                                        onclick="toggle_extra_inputs('extra-error-signature-inputs')">
+                                </span>
+                                <label class="form-text">Remove Errors in Downloaded PDF</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="custom-row social-buttons">
+                    <div class="custom-col">
+                        <div class="form-item  submit-item-extra-css">
+                            <button type="submit"
+                                class="form-element-intra-vertical-align form-element-hover-area form-text submit-button-specific-css"
+                                onclick="form_action('/style-previewer')">Preview Style</button>
+                        </div>
+                    </div>
+                    <div class="custom-col">
+                        <div class="form-item  submit-item-extra-css">
+                            <button type="submit"
+                                class="form-element-intra-vertical-align form-element-hover-area form-text submit-button-specific-css"
+                                onclick="form_action('/style-storer')">Save Style</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    <!-- whole page end-->
+</body>
+<script>
+    function edit_style(target_id, prop, value) {
+        document.getElementById(target_id).style[prop] = value + 'px';
+    }
+
+    function form_action(target) {
+        document.getElementById('style-form').action = target;
+    }
+
+    function toggle_extra_inputs(target) {
+        document.getElementById(target).classList.toggle('hidden-show');
+    }
+</script>
+
+</html>

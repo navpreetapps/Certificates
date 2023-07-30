@@ -1,0 +1,388 @@
+
+#page-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.hidden-inputs {
+    display: none;
+}
+
+.hidden-show {
+    display: block;
+}
+
+#form {}
+
+#form .menu-main-title {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: default;
+    text-align: center;
+    /* line-height: 1.5rem; */
+    margin-bottom: 0;
+}
+
+#form .menu-heading {
+    color: #A1A5B7;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: default;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+input:focus,
+textarea:focus {
+    border: 1px solid #1E6A75;
+    border-bottom: 1px solid #1E6A75 !important;
+    box-shadow: none;
+    outline: 0;
+    box-shadow: false, 0 0 0 0 rgba(var(#1E6A75, .25));
+
+}
+
+
+::placeholder {
+    color: #A1A5B7;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: #A1A5B7;
+}
+
+::-ms-input-placeholder {
+    color: #A1A5B7;
+}
+
+.custom-row {
+    display: flex;
+    width: 100%;
+}
+
+.custom-col {
+    flex-grow: 1;
+}
+
+.form-item {
+    width: 100%;
+}
+
+@media (max-width:1200px) {
+    .custom-row {
+        flex-direction: column;
+    }
+}
+
+.social-buttons-extra-css {
+    padding: 0.15rem 0.4rem 0.15rem 0.6rem;
+}
+
+.form-element-intra-vertical-align {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-weight: 500;
+}
+
+.form-element-hover-area {
+    padding: .65rem 1rem;
+    border: 1px solid #E1E3EA;
+    border-radius: 0.5rem;
+}
+
+.button-specific-css {
+    justify-content: center;
+}
+
+.form-img-size {
+    height: 1.075em;
+}
+
+.form-text {
+    font-size: 0.9rem;
+    color: #7E8299;
+    line-height: 1.5rem;
+    white-space: nowrap;
+}
+
+input,
+button,
+textarea {
+    width: 100%;
+}
+
+.input-item-extra-css {
+    margin: 0 0 1rem 0;
+    padding: 0.15rem 0.4rem 0.15rem 0.6rem;
+}
+
+.submit-item-extra-css {
+    margin: 1rem 0;
+    padding: 0.15rem 0.4rem 0.15rem 0.6rem;
+}
+
+@media (max-width:1200px) {
+
+    .input-item-extra-css,
+    .submit-item-extra-css {
+        margin: 0 0;
+        padding: 0.15rem 0.4rem 0.15rem 0.6rem;
+    }
+
+    .my-14 {
+        margin: 0.5rem 0 1rem 0;
+    }
+}
+
+.checkbox-extra-css {
+    accent-color: #287884;
+    color: #287884;
+    width: 25px;
+    margin-left: 0;
+}
+
+.fp-specific-css {
+    border: none;
+}
+
+.forget-password {
+    margin-left: auto;
+    color: #287884;
+}
+
+.submit-button-specific-css {
+    justify-content: center;
+    background-color: #0493A8;
+    color: #FFFFFF;
+}
+
+.separator.separator-content {
+    display: flex;
+    align-items: center;
+    border-bottom: 0;
+    text-align: center
+}
+
+.separator.separator-content::after,
+.separator.separator-content::before {
+    content: " ";
+    width: 50%;
+    border-bottom: 1px solid #F4F4F4;
+}
+
+.separator.separator-content::before {
+    margin-right: 1.25rem
+}
+
+.separator.separator-content::after {
+    margin-left: 1.25rem
+}
+
+.my-14 {
+    margin: 2.5rem 0 2.5rem 0;
+}
+
+@media (max-width:1200px) {
+    .my-14 {
+        margin: 1rem 0 1rem 0;
+    }
+}
+
+.separator-text {
+    font-size: .85rem;
+    width: 125px;
+    font-weight: 500;
+    color: #A1A5B7;
+    white-space: nowrap;
+}
+
+#primary-menu {
+    display: inline-block;
+    position: relative;
+    height: 100vh;
+    width: 10vh;
+    background-color: #1E6A75;
+    margin-top: 0;
+}
+
+#primary-menu-logo-cont {
+    display: flex;
+    padding-top: 2.5rem;
+    justify-content: center;
+    margin-bottom: 4.25rem
+}
+
+.primary-menu-logo-size {
+    height: 25px;
+}
+
+#primary-menu-nav-cont {
+    display: flex;
+    margin-top: 1.25rem;
+    align-items: stretch;
+    justify-content: center
+}
+
+.mi {
+    display: inline-block;
+    position: relative;
+}
+
+.mi-pos {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.mi:hover .mi-active,
+.mi-init-active {
+    color: #FFFFFF;
+}
+
+.mi:hover .mid {
+    display: inline-block;
+}
+
+.mid-positioner-nocursorer {
+    display: inline-block;
+}
+
+.mi-root {
+    text-align: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.mi-root-fw {}
+
+.mi-root-color {
+    color: #7db9c1;
+}
+
+.mi-root-icon-fs {
+    font-size: calc(1.325rem + .6vw);
+}
+
+.mi-root-text-pos {}
+
+.mi-root-text-fs {}
+
+.mid {
+    display: none;
+    position: absolute;
+    padding: none;
+    z-index: 1;
+    width: 35vh;
+    padding: 5px 2px;
+}
+
+.mid-pos {
+    left: 10vh;
+}
+
+.mid-border {
+    border-radius: .475rem;
+}
+
+.mid-bg {
+    background-color: white
+}
+
+
+.mid-overflow {}
+
+@font-face {
+    font-family: icons-outline;
+    src: url("/static/assets/preet/preet.ttf?fzo4bm") format("truetype"),
+    url("static/assets/preet/preet.woff?fzo4bm") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block
+}
+
+.i-outline {
+    font-family: icons-outline;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.i-home-2.i-outline:before {
+    content: "\ea40"
+}
+
+.i-arrow-left.i-outline:before {
+    content: "\e946"
+}
+
+
+.i-tick.i-outline:before {
+    content: "\e99e"
+}
+
+.i-wrench.i-outline:before {
+    content: "\eb37"
+}
+
+.i-user.i-outline:before {
+    content: "\eb2a"
+}
+.i-add-certs.i-outline:before {
+    content: "\e933";
+}
+
+
+.i-shield-tick.i-outline:before {
+    content: "\eace"
+}
+
+.i-shield-cross.i-outline:before {
+    content: "\eacb"
+}
+
+.mid .menu-item {
+    color: #A1A5B7;
+}
+
+.menu-item {
+    padding: 0.15rem 0.4rem 0.15rem 0.6rem;
+}
+
+.menu-heading {
+    font-weight: bolder;
+    /* margin: 1rem 0 0; */
+    color: black;
+}
+
+.menu-link-intra-vertical-align {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-weight: 500;
+}
+
+.menu-link-hover-area {
+    padding: .65rem 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.verify-popup {}
+
+.verify-popup-hover {}

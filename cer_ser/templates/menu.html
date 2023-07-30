@@ -1,0 +1,145 @@
+{% load static %}
+<style>
+    
+</style>
+<div id="primary-menu">
+    <div id="primary-menu-logo-cont">
+        <a href="/home/">
+            <img alt="Logo" src="{% static 'assets/media/logos/demo-29-small.svg' %}" class="primary-menu-logo-size" />
+        </a>
+    </div>
+    <!-- primary menu mav cont -->
+    <div id="primary-menu-nav-container">
+        <div class="mi mi-pos mi-hover ">
+            <span class="mid-positioner-nocursorer">
+                <a href='/home/' class="mi-root mi-root-color mi-root-fw mi-active mi-init-active">
+                    <i class="mi-root-icon-fs i-outline i-home-2"></i>
+                </a>
+            </span>
+            <div class="mid mid-pos mid-col-width mid-bg mid-border mid-overflow">
+                <div class="menu-item">
+                    <div class="menu-link-intra-vertical-align menu-link-hover-area">
+                        <span class="menu-heading">
+                            Home
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 2nd -->
+        <div class="mi mi-pos mi-hover ">
+            <span class="mid-positioner-nocursorer">
+                <a href='/builder/' class="mi-root mi-root-color mi-root-fw mi-active mi-init-active">
+                    <i class="mi-root-icon-fs i-outline i-wrench"></i>
+                </a>
+            </span>
+            <div class="mid mid-pos mid-col-width mid-bg mid-border mid-overflow">
+                <div class="menu-item">
+                    <div class="menu-link-intra-vertical-align menu-link-hover-area">
+                        <span class="menu-heading">
+                            Certificate Building
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 2nd end -->
+        <!-- 3rd -->
+        <div class="mi mi-pos mi-hover ">
+            <span class="mid-positioner-nocursorer">
+                <a href="/verifier/" class="mi-root mi-root-color mi-root-fw mi-active mi-init-active">
+                    <i class="mi-root-icon-fs i-outline i-tick"></i>
+                </a>
+            </span>
+            <div class="mid mid-pos mid-col-width mid-bg mid-border mid-overflow">
+                <div class="menu-item">
+                    <div class="menu-link-intra-vertical-align menu-link-hover-area">
+                        <span class="menu-heading">
+                            Certificate Verification
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 3rd end -->
+        <!-- 4th -->
+        <div id="add-certs" class="mi mi-pos mi-hover ">
+            <span class="mid-positioner-nocursorer">
+                <a href='/add-certs/' class="mi-root mi-root-color mi-root-fw mi-active mi-init-active">
+                    <link href="{% static 'styles/menu.css' %}" rel="stylesheet">
+                    <i class="mi-root-icon-fs i-outline i-add-certs"></i>
+                </a>
+            </span>
+            <div class="mid mid-pos mid-col-width mid-bg mid-border mid-overflow">
+                <div class="menu-item">
+                    <div class="menu-link-intra-vertical-align menu-link-hover-area">
+                        <span class="menu-heading">
+                            Add Certificates
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 4th end -->
+        <!-- user profile -->
+        <div class="mi mi-pos mi-hover ">
+            <span class="mid-positioner-nocursorer">
+                <div href="/verifier/" class="mi-root mi-root-color mi-root-fw mi-active mi-init-active">
+                    <i class="mi-root-icon-fs i-outline i-user"></i>
+                </div>
+            </span>
+            <div class="mid mid-pos mid-col-width mid-bg mid-border mid-overflow">
+                <div class="menu-item">
+                    <div class="menu-link-intra-vertical-align menu-link-hover-area">
+                        <span class="menu-heading">
+                            User Profile
+                        </span>
+                    </div>
+                </div>
+                <div style="cursor: pointer;" id='logout' class="menu-item">
+                    <div class="menu-link-intra-vertical-align menu-link-hover-area" onclick="logout()">
+                        <span class="menu-title">
+                            Logout
+                        </span>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a href="/sign-up" class="menu-link-intra-vertical-align menu-link-hover-area">
+                        <span class="menu-title">
+                            Sign Up
+                        </span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a href="/sign-in" class="menu-link-intra-vertical-align menu-link-hover-area">
+                        <span class="menu-title">
+                            Sign In
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--user profile  end -->
+    </div>
+    <!-- primary menu nav cont end-->
+</div>
+
+<script>
+
+    initialization();
+    function initialization() {
+        token = localStorage.getItem("certificate_user_token");
+        if (token == null) {
+            document.getElementById('logout').style.display = 'none';
+            document.getElementById('add-certs').style.display = 'none';
+            return;
+        }
+        document.getElementById('token').value = token;
+    }
+
+
+    function logout() {
+        localStorage.removeItem("certificate_user_token");
+        window.open('/home/', '_self');
+    }
+</script>
